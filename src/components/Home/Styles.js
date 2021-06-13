@@ -7,9 +7,23 @@ export default makeStyles((theme) => ({
     backgroundSize: 'cover',
     height:'100vh',
     weight: '100vw',
-    padding:'0',
-    margin: '0'
+    display:'flex',
+    justifyContent:"space-around"
+  },
 
+  play:{
+    backgroundColor:'green',
+    borderRadius:'30px',
+    width:'20em',
+    height:'2em',
 
+  },
+
+  authLogin:{
+    width:'10em',
+    height:'2em',
+    backgroundColor:'red',
+    borderRadius:'30px',
+    marginRight:'1em'
   }
 }));
