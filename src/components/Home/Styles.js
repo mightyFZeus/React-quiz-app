@@ -23,7 +23,8 @@ export default makeStyles((theme) => ({
   },
 
   play: {
-    backgroundColor: "green",
+    backgroundColor: "#000000",
+    opacity:".7",
     borderRadius: "30px",
     width: "20em",
     height: "2em",
@@ -42,7 +43,8 @@ export default makeStyles((theme) => ({
   authLogin: {
     width: "10em",
     height: "2em",
-    backgroundColor: "red",
+    backgroundColor: "#000000",
+    opacity:".7",
     borderRadius: "30px",
     marginRight: "1em",
     fontSize: "2em",

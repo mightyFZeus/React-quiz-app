@@ -25,7 +25,8 @@ const Home =() =>{
               <button className={classes.authLogin} >
               <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/login'>Login</Link>
               </button>
-              <button className={classes.authLogin} style={{  backgroundColor:'blue'}}>
+              <button className={classes.authLogin} style={{backgroundColor: "#000000",
+    opacity:".7",}}>
               <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/signup'>Sign up</Link>
                 </button>
             </div>  
