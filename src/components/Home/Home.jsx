@@ -1,7 +1,6 @@
 import React from 'react'
 import useStyles from "./Styles"
 import {Link} from 'react-router-dom'
-import { Typography } from '@material-ui/core';
 import {Helmet } from 'react-helmet'
 const Home =() =>{
 
@@ -12,23 +11,29 @@ const Home =() =>{
        <Helmet><title>Home - Quiz App</title></Helmet>
         <div className={classes.mainContainer}>
           <div className={classes.authContainer}>
-            <Typography
-              variant='h3'
+            <h3
               className={classes.heading}
             >
+             
               Quiz App
-              </Typography>
-            <button className={classes.play}>
-              <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/instructions'>Play</Link>
+              </h3>
+              <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/instructions'>
+               <button className={classes.play}>
+              Play
               </button>
+              </Link>
             <div >
-              <button className={classes.authLogin} >
-              <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/login'>Login</Link>
-              </button>
-              <button className={classes.authLogin} style={{backgroundColor: "#000000",
-    opacity:".7",}}>
-              <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/signup'>Sign up</Link>
+            <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/login'>
+                <button className={classes.authLogin} >
+                Login
                 </button>
+              </Link>
+              <Link style={{color:'whitesmoke', textDecoration:'none'}} to='/signup'>
+              <button className={classes.authLogin} style={{backgroundColor: "#000000",
+              opacity:".7",}}>
+             Sign up
+                </button>
+                </Link>
             </div>  
           </div>    
         </div>

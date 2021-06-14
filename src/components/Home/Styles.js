@@ -14,7 +14,7 @@ export default makeStyles((theme) => ({
 
   heading: {
     textAlign: "center",
-
+    fontWeight:'400',
     fontSize: "80px",
     marginBottom: ".6em",
     [theme.breakpoints.down("sm")]: {

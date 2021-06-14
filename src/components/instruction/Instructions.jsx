@@ -1,9 +1,11 @@
 import React from "react";
-
+import useStyles from './Styles'
 const Instructions = () => {
+
+  const classes = useStyles()
   return (
     <>
-      <h1>This is the instructions page</h1>
+      <h2 className={classes.heading}>This is the instructions page</h2>
     </>
   );
 };
