@@ -1,0 +1,104 @@
+import React, {useState, useEffect} from 'react'
+import {Helmet} from 'react-helmet'
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
+import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
+import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import useStyles from './Styles'
+import questions from '../../questions.json'
+import isEmpty from '../../utils/IsEmpty'
+
+
+const Quiz =() =>{
+   const classes = useStyles()
+   const [question, setQuestion] = useState(questions)
+   const [currentQuestion, setCurrentQuestion] = useState([])
+   const [nextQuestion, setNextquestion] = useState({})
+   const [prevQuestion, setPrevquestion] = useState({})
+   const [answer, setAnswer] = useState('')
+   const [numberofquestions, setnumberofQuestions] = useState(0)
+   const [numberofAnsweredQuestions, setnumberofAnsweredquestions] = useState(0)
+   const [currentQuestionIndex, setCurentQuestionIndex] = useState(0)
+   const [score, setScore] = useState(0)
+   const [correctAnswers, setcorectAnswers] = useState(0)
+   const [wrongAnswers, setwormgAnswers] = useState(0)
+   const [hints, setHints] = useState(5)
+   const [fiftyFifty, setfiftyFifty] = useState(5)
+   const [usedfiftyFifty, setusedfiftyFifty] = useState(false)
+   const  [time, setTime] = useState({})
+
+   const displayQuestions = (questions=question, currentQuestion, nextQuestion, prevQuestion  ) =>{
+      if(!isEmpty(question)){
+        questions = question;
+        currentQuestion = questions[currentQuestionIndex]
+        nextQuestion = questions[currentQuestionIndex  + 1] 
+        prevQuestion = questions[currentQuestionIndex  - 1] 
+        // const answer = currentQuestion.answer;
+
+        setCurrentQuestion({currentQuestion})
+        setNextquestion({nextQuestion})
+        setPrevquestion({prevQuestion})
+        
+        console.log(currentQuestion)
+      }
+   }
+
+   useEffect(() =>{
+      displayQuestions(question, currentQuestion, nextQuestion, prevQuestion)
+   }, [])
+   
+   
+  return(
+    
+    <>
+    <Helmet><title>Quiz Page</title></Helmet>
+      <h2 style={{textAlign:'center'}}>Quiz Mode</h2>
+      <div className={classes.questions}>
+       <div className={classes.lifeline}>
+          <p>
+            <AllInclusiveIcon />
+            2
+          </p>
+          <p>
+            <EmojiObjectsIcon />
+            5
+          </p>
+      
+        </div>
+        <p>
+          <span style={{float:'left'}}>1 0f 15</span>
+         <span style={{float:'right'}}><QueryBuilderIcon /> 2:15</span> 
+        </p>
+    <div>
+    </div>
+          <div>
+     { Object.keys(currentQuestion).map((item) =>(
+       <div>
+        <h5 className={classes.heading}>{currentQuestion[item].question}</h5>
+        <div className={classes.optionsContainer}>
+        <p className={classes.option}>{currentQuestion[item].optionA}</p>
+        <p className={classes.option}>{currentQuestion[item].optionB}</p>
+        </div>
+        <div className={classes.optionsContainer}>
+          <p className={classes.option}>{currentQuestion[item].optionC}</p>
+          <p className={classes.option}>{currentQuestion[item].optionD}</p>
+        </div>
+        
+       </div>
+                 
+               
+            
+     ))}
+      </div>
+        
+        <div className={classes.buttonContainer}>
+        <button className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
+        <button className={classes.button} style={{backgroundColor:'green', transition:'0.2s linear all'}}>Next</button>
+        <button className={classes.button} style={{backgroundColor:'red', transition:'0.2s linear all'}}>Quit</button>
+        </div>
+      </div>
+
+    </>
+  )
+}
+
+export default Quiz
