@@ -50,7 +50,7 @@ const Quiz =() =>{
    }, [])
 
    const handleClick =(e) =>{
-     if(e.target.innerHTML === '100 degrees Celcius'){
+     if(e.target.innerHTML === '100 degrees Celcius' ){
       correctAnswer()
      }else{
        wrongAnswer()
@@ -62,41 +62,32 @@ const Quiz =() =>{
     M.toast({
       html: 'Çorrect Answer',
       displayLength:1500,
-      classes :'valid'
+      classes :'rounded'
     });
     
-     setScore(prevState =>({
-       score: prevState.score + 1
-     }))
-     setcorectAnswers(prevState =>({
-      correctAnswers: prevState.correctAnswers + 1
-    }))
-    setCurentQuestionIndex(prevState =>({
-      currentQuestionIndex: prevState.currentQuestionIndex + 1
-    }))
-    setnumberofAnsweredquestions(prevState =>({
-      numberofAnsweredQuestions: prevState.numberofAnsweredQuestions + 1
-    }))
+      setScore(prevScore => prevScore + 1)
+     setcorectAnswers(prevCorrectAnswers => prevCorrectAnswers + 1)
+    setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1 )
+    setnumberofAnsweredquestions(prevNumberofAnsweredQuestions => prevNumberofAnsweredQuestions + 1),
+    displayNewquestions()
+
    }
 
    const wrongAnswer =() =>{
      navigator.vibrate(1000)
     M.toast({
-      html: 'Wrong Answer',
-      classes: 'toast-inValid',
+      html: 'Wrong answer',
+      classes:'rounded' ,
       displayLength:2000
     })
-    setwrongAnswers(prevState =>({
-      wrongAnswers: prevState.wrongAnswers + 1
-    }))
-   setCurentQuestionIndex(prevState =>({
-     currentQuestionIndex: prevState.currentQuestionIndex + 1
-   }))
-   setnumberofAnsweredquestions(prevState =>({
-     numberofAnsweredQuestions: prevState.numberofAnsweredQuestions + 1
-   }))
+    setwrongAnswers(prevWrongAnswers => prevWrongAnswers + 1)
+   setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1)
+   setnumberofAnsweredquestions(prevNumberofAnsweredQuestions => prevNumberofAnsweredQuestions + 1),
+   displayNewquestions()
   }
-
+ const displayNewquestions =() =>{
+  displayQuestions(questions, currentQuestion, nextQuestion, prevQuestion )
+ }
    
    
   return(
@@ -122,7 +113,7 @@ const Quiz =() =>{
         </p>
     <div>
     </div>
-          <div>
+      <div>
      { Object.keys(currentQuestion).map((item) =>(
        <div>
         <h5 className={classes.heading}>{currentQuestion[item].question}</h5>
@@ -141,6 +132,19 @@ const Quiz =() =>{
             
      ))}
       </div>
+    {/* <div>
+        <h5 className={classes.heading}>{currentQuestion.question}</h5>
+        <div className={classes.optionsContainer}>
+        <p onClick={handleClick} className={classes.option}>{currentQuestion.optionA}</p>
+        <p onClick={handleClick} className={classes.option}>{currentQuestion.optionB}</p>
+        </div>
+        <div className={classes.optionsContainer}>
+          <p onClick={handleClick} className={classes.option}>{currentQuestion.optionC}</p>
+          <p onClick={handleClick} className={classes.option}>{currentQuestion.optionD}</p>
+        </div>
+        
+       </div> */}
+
         
         <div className={classes.buttonContainer}>
         <button  className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
