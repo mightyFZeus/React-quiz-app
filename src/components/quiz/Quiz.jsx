@@ -6,6 +6,8 @@ import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import useStyles from './Styles'
 import questions from '../../questions.json'
 import isEmpty from '../../utils/IsEmpty'
+import M from 'materialize-css'
+import './test.css'
 
 
 const Quiz =() =>{
@@ -20,7 +22,7 @@ const Quiz =() =>{
    const [currentQuestionIndex, setCurentQuestionIndex] = useState(0)
    const [score, setScore] = useState(0)
    const [correctAnswers, setcorectAnswers] = useState(0)
-   const [wrongAnswers, setwormgAnswers] = useState(0)
+   const [wrongAnswers, setwrongAnswers] = useState(0)
    const [hints, setHints] = useState(5)
    const [fiftyFifty, setfiftyFifty] = useState(5)
    const [usedfiftyFifty, setusedfiftyFifty] = useState(false)
@@ -32,19 +34,69 @@ const Quiz =() =>{
         currentQuestion = questions[currentQuestionIndex]
         nextQuestion = questions[currentQuestionIndex  + 1] 
         prevQuestion = questions[currentQuestionIndex  - 1] 
-        // const answer = currentQuestion.answer;
+        
 
         setCurrentQuestion({currentQuestion})
         setNextquestion({nextQuestion})
         setPrevquestion({prevQuestion})
-        
+       
         console.log(currentQuestion)
+        
       }
    }
 
    useEffect(() =>{
       displayQuestions(question, currentQuestion, nextQuestion, prevQuestion)
    }, [])
+
+   const handleClick =(e) =>{
+     if(e.target.innerHTML === '100 degrees Celcius'){
+      correctAnswer()
+     }else{
+       wrongAnswer()
+     }
+   }
+
+   const correctAnswer =() =>{
+    
+    M.toast({
+      html: 'Çorrect Answer',
+      displayLength:1500,
+      classes :'valid'
+    });
+    
+     setScore(prevState =>({
+       score: prevState.score + 1
+     }))
+     setcorectAnswers(prevState =>({
+      correctAnswers: prevState.correctAnswers + 1
+    }))
+    setCurentQuestionIndex(prevState =>({
+      currentQuestionIndex: prevState.currentQuestionIndex + 1
+    }))
+    setnumberofAnsweredquestions(prevState =>({
+      numberofAnsweredQuestions: prevState.numberofAnsweredQuestions + 1
+    }))
+   }
+
+   const wrongAnswer =() =>{
+     navigator.vibrate(1000)
+    M.toast({
+      html: 'Wrong Answer',
+      classes: 'toast-inValid',
+      displayLength:2000
+    })
+    setwrongAnswers(prevState =>({
+      wrongAnswers: prevState.wrongAnswers + 1
+    }))
+   setCurentQuestionIndex(prevState =>({
+     currentQuestionIndex: prevState.currentQuestionIndex + 1
+   }))
+   setnumberofAnsweredquestions(prevState =>({
+     numberofAnsweredQuestions: prevState.numberofAnsweredQuestions + 1
+   }))
+  }
+
    
    
   return(
@@ -75,12 +127,12 @@ const Quiz =() =>{
        <div>
         <h5 className={classes.heading}>{currentQuestion[item].question}</h5>
         <div className={classes.optionsContainer}>
-        <p className={classes.option}>{currentQuestion[item].optionA}</p>
-        <p className={classes.option}>{currentQuestion[item].optionB}</p>
+        <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionA}</p>
+        <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionB}</p>
         </div>
         <div className={classes.optionsContainer}>
-          <p className={classes.option}>{currentQuestion[item].optionC}</p>
-          <p className={classes.option}>{currentQuestion[item].optionD}</p>
+          <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionC}</p>
+          <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionD}</p>
         </div>
         
        </div>
@@ -91,9 +143,9 @@ const Quiz =() =>{
       </div>
         
         <div className={classes.buttonContainer}>
-        <button className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
-        <button className={classes.button} style={{backgroundColor:'green', transition:'0.2s linear all'}}>Next</button>
-        <button className={classes.button} style={{backgroundColor:'red', transition:'0.2s linear all'}}>Quit</button>
+        <button  className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
+        <button  className={classes.button} style={{backgroundColor:'green', transition:'0.2s linear all'}}>Next</button>
+        <button  className={classes.button} style={{backgroundColor:'red', transition:'0.2s linear all'}}>Quit</button>
         </div>
       </div>
 
