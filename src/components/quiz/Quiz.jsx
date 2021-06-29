@@ -149,6 +149,11 @@ const Quiz =(props) =>{
         props.history.push('/')
    }
  }
+
+//  const handleHints =() =>{
+//   const Options =Array.from(document.querySelectorAll('.classes.option'))
+//   console.log(Options)
+//  }
    
    
   return(
@@ -163,13 +168,13 @@ const Quiz =(props) =>{
       <h2 style={{textAlign:'center'}}>Quiz Mode</h2>
       <div className={classes.questions}>
        <div className={classes.lifeline}>
-          <p>
-            <AllInclusiveIcon />
-            2
-          </p>
-          <p>
-            <EmojiObjectsIcon />
+          <p  >
+            <AllInclusiveIcon className={classes.hints} />
             5
+          </p>
+          <p     onClick={handleHints}>
+            <EmojiObjectsIcon className={classes.hints} />
+            {hints}
           </p>
       
         </div>

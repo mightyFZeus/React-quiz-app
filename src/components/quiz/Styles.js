@@ -70,6 +70,14 @@ button:{
       padding:'0.5rem 1rem',
     }
 },
+hints:{
+  color: 'green',
+  cursor:'pointer',
+  "&:hover": {
+    color: "#d3d61e",
+  },
+
+}
 
 
 
