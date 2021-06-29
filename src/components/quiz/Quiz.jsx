@@ -13,7 +13,7 @@ import buttonSound from '../../assets/audio/button-sound.mp3'
 import './test.css'
 
 
-const Quiz =() =>{
+const Quiz =(props) =>{
    const classes = useStyles()
    const [question, setQuestion] = useState(questions)
    const [currentQuestion, setCurrentQuestion] = useState([])
@@ -63,8 +63,18 @@ const Quiz =() =>{
    
    }
 
-   const handleButtonSoundClick = () =>{
-    playButtonSound()
+   const handleButtonSoundClick = (e) =>{
+      switch(e.target.id) {
+
+        case 'nextButton':handleNext();
+        break;
+        case 'prevButton': handlePrev()
+        break;
+        case 'quit': handleQuit()
+          default:
+            break;
+      }
+   
    }
 
    const playButtonSound = () =>{
@@ -112,8 +122,32 @@ const Quiz =() =>{
 
  const handleNext = () =>{
   playButtonSound()
-  //  nextQuestion !== undefined ? setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1 ) :
+  if(nextQuestion !==undefined){
+    
+  setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1)
+    displayQuestions(questions, currentQuestion, nextQuestion, prevQuestion )
+   
+  }
+   
 
+ }
+
+ const handlePrev =() =>{
+   playButtonSound()
+   if(prevQuestion !==undefined){
+    
+    setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1)
+      displayQuestions(questions, currentQuestion, nextQuestion, prevQuestion )
+     
+    }
+ }
+
+ const handleQuit =() =>{
+   playButtonSound()
+  
+   if( window.confirm('Are you sure you want to Quit')){
+        props.history.push('/')
+   }
  }
    
    
@@ -179,9 +213,9 @@ const Quiz =() =>{
 
         
         <div className={classes.buttonContainer}>
-        <button onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
-        <button onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'green', transition:'0.2s linear all'}}>Next</button>
-        <button onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'red', transition:'0.2s linear all'}}>Quit</button>
+        <button id='prevButton' onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
+        <button id='nextButton' onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'green', transition:'0.2s linear all'}}>Next</button>
+        <button id='quit' onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'red', transition:'0.2s linear all'}}>Quit</button>
         </div>
       </div>
 
