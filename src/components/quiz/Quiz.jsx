@@ -140,7 +140,7 @@ const Quiz =() =>{
       
         </div>
         <p>
-          <span style={{float:'left'}}>{currentQuestionIndex + 1} 0f 15</span>
+          <span style={{float:'left'}}>{currentQuestionIndex } 0f 15</span>
          <span style={{float:'right'}}><QueryBuilderIcon /> 2:15</span> 
         </p>
     <div>
