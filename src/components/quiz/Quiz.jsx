@@ -79,7 +79,7 @@ const Quiz =() =>{
     M.toast({
       html: 'Wrong answer',
       classes:'rounded' ,
-      displayLength:2000
+      displayLength:1500
     })
     setwrongAnswers(prevWrongAnswers => prevWrongAnswers + 1)
    setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1)
@@ -109,7 +109,7 @@ const Quiz =() =>{
       
         </div>
         <p>
-          <span style={{float:'left'}}>1 0f 15</span>
+          <span style={{float:'left'}}>{numberofAnsweredQuestions} 0f 15</span>
          <span style={{float:'right'}}><QueryBuilderIcon /> 2:15</span> 
         </p>
     <div>
