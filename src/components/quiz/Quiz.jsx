@@ -7,6 +7,9 @@ import useStyles from './Styles'
 import questions from '../../questions.json'
 import isEmpty from '../../utils/IsEmpty'
 import M from 'materialize-css'
+import correctSound from '../../assets/audio/correct-answer.mp3'
+import wrongSound from '../../assets/audio/wrong-answer.mp3'
+import buttonSound from '../../assets/audio/button-sound.mp3'
 import './test.css'
 
 
@@ -40,6 +43,7 @@ const Quiz =() =>{
         setCurrentQuestion({currentQuestion})
         setNextquestion({nextQuestion})
         setPrevquestion({prevQuestion})
+        setnumberofQuestions(questions.length)
        
       
         return rightAnswer
@@ -54,8 +58,17 @@ const Quiz =() =>{
 
    const handleClick =(e ) =>{
       const answer =  displayQuestions()
-      e.target.innerHTML == answer?  correctAnswer() : wrongAnswer()
+      e.target.innerHTML == answer?  
+      correctAnswer(): wrongAnswer()
    
+   }
+
+   const handleButtonSoundClick = () =>{
+    playButtonSound()
+   }
+
+   const playButtonSound = () =>{
+     document.getElementById('button').play()
    }
 
    const correctAnswer =() =>{
@@ -65,6 +78,9 @@ const Quiz =() =>{
       displayLength:1500,
       classes :'rounded'
     });
+    setTimeout(() => {
+      document.getElementById('correct').play()
+    }, 500)
     
       setScore(prevScore => prevScore + 1)
      setcorectAnswers(prevCorrectAnswers => prevCorrectAnswers + 1)
@@ -81,6 +97,10 @@ const Quiz =() =>{
       classes:'rounded' ,
       displayLength:1500
     })
+    setTimeout(() => {
+      document.getElementById('wrong').play()
+    }, 500)
+    
     setwrongAnswers(prevWrongAnswers => prevWrongAnswers + 1)
    setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1)
    setnumberofAnsweredquestions(prevNumberofAnsweredQuestions => prevNumberofAnsweredQuestions + 1),
@@ -89,12 +109,23 @@ const Quiz =() =>{
  const displayNewquestions =() =>{
   displayQuestions(questions, currentQuestion, nextQuestion, prevQuestion )
  }
+
+ const handleNext = () =>{
+  playButtonSound()
+  //  nextQuestion !== undefined ? setCurentQuestionIndex(prevCurrentQuestionIndex => prevCurrentQuestionIndex + 1 ) :
+
+ }
    
    
   return(
     
     <>
     <Helmet><title>Quiz Page</title></Helmet>
+    <>
+      <audio id='correct'  src={correctSound}></audio>
+      <audio id='wrong'  src={wrongSound}></audio>
+      <audio id='button'  src={buttonSound}></audio>
+    </>
       <h2 style={{textAlign:'center'}}>Quiz Mode</h2>
       <div className={classes.questions}>
        <div className={classes.lifeline}>
@@ -109,7 +140,7 @@ const Quiz =() =>{
       
         </div>
         <p>
-          <span style={{float:'left'}}>{numberofAnsweredQuestions} 0f 15</span>
+          <span style={{float:'left'}}>{currentQuestionIndex + 1} 0f 15</span>
          <span style={{float:'right'}}><QueryBuilderIcon /> 2:15</span> 
         </p>
     <div>
@@ -148,9 +179,9 @@ const Quiz =() =>{
 
         
         <div className={classes.buttonContainer}>
-        <button  className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
-        <button  className={classes.button} style={{backgroundColor:'green', transition:'0.2s linear all'}}>Next</button>
-        <button  className={classes.button} style={{backgroundColor:'red', transition:'0.2s linear all'}}>Quit</button>
+        <button onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'blue', transition:'0.2s linear all'}}>Previous</button>
+        <button onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'green', transition:'0.2s linear all'}}>Next</button>
+        <button onClick={handleButtonSoundClick} className={classes.button} style={{backgroundColor:'red', transition:'0.2s linear all'}}>Quit</button>
         </div>
       </div>
 
