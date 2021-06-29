@@ -32,6 +32,7 @@ const Quiz =() =>{
       if(!isEmpty(question)){
         questions = question;
         currentQuestion = questions[currentQuestionIndex]
+        const rightAnswer = currentQuestion.answer
         nextQuestion = questions[currentQuestionIndex  + 1] 
         prevQuestion = questions[currentQuestionIndex  - 1] 
         
@@ -40,25 +41,25 @@ const Quiz =() =>{
         setNextquestion({nextQuestion})
         setPrevquestion({prevQuestion})
        
-        console.log(currentQuestion)
-        
+      
+        return rightAnswer
       }
+      
+      
    }
 
    useEffect(() =>{
       displayQuestions(question, currentQuestion, nextQuestion, prevQuestion)
    }, [])
 
-   const handleClick =(e) =>{
-     if(e.target.innerHTML === '100 degrees Celcius' ){
-      correctAnswer()
-     }else{
-       wrongAnswer()
-     }
+   const handleClick =(e ) =>{
+      const answer =  displayQuestions()
+      e.target.innerHTML == answer?  correctAnswer() : wrongAnswer()
+   
    }
 
    const correctAnswer =() =>{
-    
+  
     M.toast({
       html: 'Çorrect Answer',
       displayLength:1500,
