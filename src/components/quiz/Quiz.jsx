@@ -1,4 +1,6 @@
+import './test.css'
 import React, {useState, useEffect} from 'react'
+
 import {Helmet} from 'react-helmet'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
@@ -10,7 +12,6 @@ import M from 'materialize-css'
 import correctSound from '../../assets/audio/correct-answer.mp3'
 import wrongSound from '../../assets/audio/wrong-answer.mp3'
 import buttonSound from '../../assets/audio/button-sound.mp3'
-import './test.css'
 
 
 const Quiz =(props) =>{
@@ -30,6 +31,7 @@ const Quiz =(props) =>{
    const [fiftyFifty, setfiftyFifty] = useState(5)
    const [usedfiftyFifty, setusedfiftyFifty] = useState(false)
    const  [time, setTime] = useState({})
+   const [previosRandomNumber, setpreviosRandomNumber] = useState([])
 
    const displayQuestions = (questions=question, currentQuestion, nextQuestion, prevQuestion  ) =>{
       if(!isEmpty(question)){
@@ -44,7 +46,8 @@ const Quiz =(props) =>{
         setNextquestion({nextQuestion})
         setPrevquestion({prevQuestion})
         setnumberofQuestions(questions.length)
-       
+        setpreviosRandomNumber([])
+        showOptions()
       
         return rightAnswer
       }
@@ -58,7 +61,8 @@ const Quiz =(props) =>{
 
    const handleClick =(e ) =>{
       const answer =  displayQuestions()
-      e.target.innerHTML == answer?  
+      console.log(answer)
+      e.target.outerHTML == answer?  
       correctAnswer(): wrongAnswer()
    
    }
@@ -150,10 +154,42 @@ const Quiz =(props) =>{
    }
  }
 
-//  const handleHints =() =>{
-//   const Options =Array.from(document.querySelectorAll('.classes.option'))
-//   console.log(Options)
-//  }
+ const showOptions =() =>{
+  const options =Array.from(document.querySelectorAll('#option'))
+  options.forEach((option) =>{
+    option.style.visibility ='visible'
+  })
+ }
+ 
+ const handleHints =() =>{
+   if(hints >0 ){
+    const options =Array.from(document.querySelectorAll('#option'))
+    let indexOfAnswer;
+    options.forEach((option, index) =>{
+        if(option.innerHTML.toLowerCase() === answer.toLowerCase()){
+          indexOfAnswer = index
+        }
+    })
+    while(true){
+      const   randomNumber = Math.round(Math.random() * 3 )
+      if (randomNumber !==indexOfAnswer && !previosRandomNumber.includes(randomNumber) ){
+        options.forEach((option, index) =>{
+        if(index ===randomNumber )
+        option.style.visibility = 'hidden'
+        setHints(hints - 1)
+        setpreviosRandomNumber(prevPreviosRandomNumber => prevPreviosRandomNumber.concat(randomNumber) )
+        })
+       
+        
+      }
+      break
+    }
+     if(previosRandomNumber.length >= 3) 
+     return;
+    console.log(options)
+   }
+  
+ }
    
    
   return(
@@ -172,7 +208,7 @@ const Quiz =(props) =>{
             <AllInclusiveIcon className={classes.hints} />
             5
           </p>
-          <p     onClick={handleHints}>
+          <p  onClick={handleHints}   >
             <EmojiObjectsIcon className={classes.hints} />
             {hints}
           </p>
@@ -189,12 +225,12 @@ const Quiz =(props) =>{
        <div>
         <h5 className={classes.heading}>{currentQuestion[item].question}</h5>
         <div className={classes.optionsContainer}>
-        <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionA}</p>
-        <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionB}</p>
+        <p onClick={handleClick}  id='option'  className={classes.option}>{currentQuestion[item].optionA}</p>
+        <p onClick={handleClick}  id='option'  className={classes.option}>{currentQuestion[item].optionB}</p>
         </div>
         <div className={classes.optionsContainer}>
-          <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionC}</p>
-          <p onClick={handleClick} className={classes.option}>{currentQuestion[item].optionD}</p>
+          <p onClick={handleClick}id='option'  className={classes.option}>{currentQuestion[item].optionC}</p>
+          <p onClick={handleClick} id='option' className={classes.option}>{currentQuestion[item].optionD}</p>
         </div>
         
        </div>

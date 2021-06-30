@@ -1,4 +1,24 @@
-.rouned{
-  background-color: 'red';
+.rounded{
+  background-color: 'green';
   font-size:  '200px' !important
+}
+
+.option {
+  
+    background-color:'blue';
+    border-radius:'30px';
+    color:'white';
+    cursor:'pointer';
+    margin:'2rem auto';
+    padding:'1rem';
+    transition:'0.3s linear all';
+    text-align:'center';
+    width:'90%';
+    /* "&:hover": {
+        backgroundColor: "#030647",
+      },
+       [theme.breakpoints.down("sm")]: {
+        width: "70%"
+      } */
+  
 }
